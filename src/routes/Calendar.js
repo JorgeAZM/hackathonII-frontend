@@ -68,6 +68,21 @@ export default function Calendar() {
         }
     }, [isSmallScreen]);
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (!isSmallScreen && alertOpen) {
+                setAlertOpen(false);
+                setShowLightbox(false);
+            }
+        };
+    
+        window.addEventListener('resize', handleResize);
+    
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [isSmallScreen, alertOpen]);
+
     const handleEnviarReporte = () => {
         setShowReporte(false);
         setShowReportado(true);
